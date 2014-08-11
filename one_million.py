@@ -1,9 +1,11 @@
-target= 1000000
+target = 1000000
 
-for i in range(1,10000001):
-    if '0' in str(i): continue        
-    for j in range(1,10000001):
-        if '0' in str(j): continue
-        if (i * j) == target:
-            print ('Factors: ' + str(i) + ' : ' + str(j))
-            return
+for i in range(1,500001):    
+    if target % i != 0: continue    
+    if '0' in str(i): continue
+
+    j = int(target / i)
+    if '0' in str(j): continue        
+
+    print ('Factors: ' + str(i) + ' : ' + str(j))
+    exit
