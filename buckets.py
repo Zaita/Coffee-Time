@@ -1,58 +1,50 @@
 import math
-
-print("THIS IS NOT COMPLETE AND WILL NOT WORK")
+import itertools
 
 buckets = []
 buckets.append([])
 buckets.append([])
 buckets.append([])
 
-start_value = 0
+digits = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ]
+size = len(digits)
 
-found_answer = False
-while not found_answer:
-    start_value += 1
-
-
-    
-    buckets[0].append(start_value)
-
-    error = False
-    
-    for i in range(start_value, 14):
-        print('i: ' + str(i))
-        placed_i = False
-        print('Buckets: ' + str(len(buckets)))
-        for bucket in buckets:
-            if len(bucket) == 0:
-                print('Placing i in new bucket')
-                bucket.append(i)
-                break
-
-            bad_match = False
-            for value in bucket:
-                for other_value in bucket:
-                    if abs(other_value - value) == i:
-                        bad_match = True
-                        break
-
-            if not bad_match:
-                bucket.append(i)
-                placed_i = True
-                break
-        if not placed_i:
-            error = True
+def check_bucket(index, value):
+    this_bucket = True
+    for existing in buckets[index]:
+        abs_value = abs(existing - value)
+        if abs_value in buckets[index]:
+            print('Not bucket ' + str(index) + ' because of ' + str(existing))
+            this_bucket = False
             break
+    if this_bucket:
+        print('Bucket: ' + str(index))
+    return this_bucket
 
-    if not error:
-        print("Found Answer")
-        break
+def start():
+    last_bucket_index = 0
+    for value in digits:
+        print('-- Value: ' + str(value))
+        if check_bucket(last_bucket_index, value):            
+            buckets[last_bucket_index].append(value)
+        else:
+            for i in range(0, 3):
+                if check_bucket(i, value):
+                    buckets[i].append(value)
+                    last_bucket_index = i
+                    break
 
-total_length = 0
-for bucket in buckets:
-    print("Bucket: " + ''.join(str(bucket)))
-    total_length += len(bucket)
-print("Total Length: " + str(total_length))
-          
+start()    
+if len(buckets[0]) + len(buckets[1]) + len(buckets[2]) == size:
+    print('--> Found Solution')    
+else:
+    print('--> No Solution')
+    
+print('Bucket 0: ' + str(buckets[0]))
+print('Bucket 1: ' + str(buckets[1]))
+print('Bucket 2: ' + str(buckets[2]))
+    
+            
+
             
     
