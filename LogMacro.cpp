@@ -8,7 +8,7 @@
  *
  * Expected output:
  * [WARNING] - Hello World
- * [ERROR] The quick brown fox
+ * [ERROR] - The quick brown fox
  */
 #include <iostream>
 #include <string>
